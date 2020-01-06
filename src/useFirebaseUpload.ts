@@ -1,11 +1,6 @@
 import { useState, useEffect } from "react";
 import firebase from "firebase";
-
-var firebaseConfig = {
-// ADD YOUR FIREBASE CONFIGURATION
-};
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+// import { firebase } from '../../../services/firebase-service'
 
 interface UploadDataResponse { metaData: firebase.storage.FullMetadata, downloadUrl: any };
 interface ProgressResponse { value: number }
@@ -13,14 +8,14 @@ interface ProgressResponse { value: number }
 // the firebase reference to storage
 const storageRef = firebase.storage().ref();
 
-function FirebaseFileUploadApi(): [{
+export const useFirebaseUpload = (): [{
     data: UploadDataResponse | undefined,
     isLoading: boolean,
     isError: any,
     progress: ProgressResponse | null
 },
     Function
-] {
+] => {
     // the data from the file upload response
     const [data, setData] = useState<UploadDataResponse | undefined>();
 
@@ -97,5 +92,3 @@ function FirebaseFileUploadApi(): [{
 
     return [{ data, isLoading, isError, progress }, setFileData];
 }
-
-export default FirebaseFileUploadApi;
